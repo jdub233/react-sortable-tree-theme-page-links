@@ -45,11 +45,13 @@ class MinimalThemeNodeContentRenderer extends Component {
       rowDirection,
       ...otherProps
     } = this.props;
+
     const nodeTitle = title || node.title;
     const nodeSubtitle = subtitle || node.subtitle;
 
     const isDraggedDescendant = draggedNode && isDescendant(draggedNode, node);
     const isLandingPadActive = !didDrop && isDragging;
+    const hasChildren = node.children && (node.children.length > 0 || typeof node.children === 'function');
     const nodeContent = connectDragPreview( <div
         className={
           styles.rowContents +
@@ -62,6 +64,7 @@ class MinimalThemeNodeContentRenderer extends Component {
           <span
             className={
               styles.rowTitle +
+              (hasChildren ? ` ${styles.rowHasChildren}` : '') +
               (node.subtitle ? ` ${styles.rowTitleWithSubtitle}` : '')
             }
           >
@@ -71,7 +74,7 @@ class MinimalThemeNodeContentRenderer extends Component {
                   path,
                   treeIndex,
                 })
-              : nodeTitle}
+              : nodeTitle + (hasChildren ? ` (${node.children.length})` : '' )}
           </span>
 
           {nodeSubtitle && (
