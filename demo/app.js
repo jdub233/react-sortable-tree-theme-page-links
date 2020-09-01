@@ -3,6 +3,20 @@ import SortableTree, { toggleExpandedForAll } from 'react-sortable-tree';
 import CustomTheme from '../index';
 import './app.css';
 
+const demoPages = [
+  { title: 'Home' },
+  { title: 'Admissions', children: [
+    { title: 'Undergraduate' },
+    { title: 'Graduate' }
+  ] },
+  { title: 'Academics', children: [
+    { title: 'Schools' },
+    { title: 'Programs' }
+  ] },
+  { title: 'Research' },
+  { title: 'Campus' },
+];
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -11,16 +25,7 @@ class App extends Component {
       searchString: '',
       searchFocusIndex: 0,
       searchFoundCount: null,
-      treeData: [
-        { title: 'This is the Full Node Drag theme' },
-        { title: 'You can click anywhere on the node to drag it' },
-        {
-          title: 'This node has dragging disabled',
-          subtitle: 'Note how the hover behavior is different',
-          dragDisabled: true,
-        },
-        { title: 'Chicken', children: [{ title: 'Egg' }] },
-      ],
+      treeData: demoPages,
     };
     this.updateTreeData = this.updateTreeData.bind(this);
     this.expandAll = this.expandAll.bind(this);
@@ -90,7 +95,7 @@ class App extends Component {
         style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}
       >
         <div style={{ flex: '0 0 auto', padding: '0 15px' }}>
-          <h3>Full Node Drag Theme</h3>
+          <h3>Page Tree Theme</h3>
           <button onClick={this.expandAll}>Expand All</button>
           <button onClick={this.collapseAll}>Collapse All</button>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -145,7 +150,7 @@ class App extends Component {
             searchQuery={searchString}
             searchFocusOffset={searchFocusIndex}
             style={{width: '600px'}}
-            rowHeight={45}
+            rowHeight={35}
             searchFinishCallback={matches =>
               this.setState({
                 searchFoundCount: matches.length,
